@@ -36,7 +36,7 @@ class Students(Resource):
         response = list(database.db.students.find())
         students = []
         for student in response:
-            del students['_id']
+            del student['_id']
             students.append(student)
         return jsonify({'results':students})
 
