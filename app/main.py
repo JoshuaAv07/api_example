@@ -97,7 +97,7 @@ class Student(Resource):
 
 api.add_resource(Test,'/test/')
 api.add_resource(Students,'/students/')
-api.add_resource(Student, '/student', '/student/<int:id>/')
+api.add_resource(Student, '/student/', '/student/<int:id>/')
 
 if __name__ == '__main__':
     app.run(load_dotenv=True, port=8080)
