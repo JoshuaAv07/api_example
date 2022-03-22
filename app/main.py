@@ -22,13 +22,7 @@ class Test(Resource):
 
     def get(self):
         return jsonify({"message":"You are connected"})
-
-class Student(Resource):
-
-    def get(self, id):
-        response = list(database.db.students.find())
-        del response['_id']
-        return jsonify(response)
+        
 
 class Students(Resource):
 
@@ -39,6 +33,14 @@ class Students(Resource):
             del student['_id']
             students.append(student)
         return jsonify({'results':students})
+
+
+class Student(Resource):
+
+    def get(self, id):
+        response = list(database.db.students.find({'id':id}))
+        del response['_id']
+        return jsonify(response)
 
     def post(self):
         args = post_students_args.parse_args()
@@ -92,7 +94,7 @@ class Students(Resource):
 
 api.add_resource(Test,'/test/')
 api.add_resource(Students,'/students/')
-api.add_resource(Student, '/students/<int:id>/')
+api.add_resource(Student, '/student', '/student/<int:id>/')
 
 if __name__ == '__main__':
     app.run(load_dotenv=True, port=8080)
