@@ -50,7 +50,7 @@ class Students(Resource):
 class Student(Resource):
 
     def get(self, id):
-        response = list(database.db.students.find_one({'id':id}))
+        response = database.db.students.find_one({'id':id})
         del response['_id']
         return jsonify(response)
 
