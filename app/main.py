@@ -22,7 +22,7 @@ class Test(Resource):
 
     def get(self):
         return jsonify({"message":"You are connected"})
-        
+
 
 class Students(Resource):
 
@@ -74,8 +74,11 @@ class Student(Resource):
     def patch(self):
         pass
     
-    def delete(self):
-        pass
+    def delete(self, id):
+        student = self.abort_if_not_exist(id)
+        database.db.students.delete_one({'id':id})
+        del student['_id']
+        return jsonify({'deleted student': student})
 
     def abort_if_id_exist(self, id):
         if database.db.students.find_one({'id':id}):
