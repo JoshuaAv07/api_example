@@ -21,10 +21,10 @@ post_students_args.add_argument("career", type=str, required=False)
 
 patch_student_args = reqparse.RequestParser()
 
-patch_student_args.add_argument("id", type=int, help="ERROR id value needs to be an integer", required=True)
-patch_student_args.add_argument( "first_name", type=str, help="ERROR first_name is required", required=True)
-patch_student_args.add_argument( "last_name", type=str, help="ERROR last_name is required", required=True)
-patch_student_args.add_argument("image", type=str, help="ERROR you need to add the image url", required=True)
+patch_student_args.add_argument("id", type=int, help="ERROR id value needs to be an integer", required=False)
+patch_student_args.add_argument( "first_name", type=str, help="ERROR first_name is required", required=False)
+patch_student_args.add_argument( "last_name", type=str, help="ERROR last_name is required", required=False)
+patch_student_args.add_argument("image", type=str, help="ERROR you need to add the image url", required=False)
 patch_student_args.add_argument("group", type=str, required=False)
 patch_student_args.add_argument("career", type=str, required=False)
 
@@ -98,7 +98,7 @@ class Student(Resource):
                 'career': args['career'] or student['career'], 
             }
         })
-        
+
         student = self.abort_if_not_exist(id)
         del student['_id']
         return jsonify(student)
