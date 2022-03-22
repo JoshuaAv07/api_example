@@ -38,7 +38,7 @@ class Students(Resource):
 class Student(Resource):
 
     def get(self, id):
-        response = list(database.db.students.find({'id':id}))
+        response = list(database.db.students.find_one({'id':id}))
         del response['_id']
         return jsonify(response)
 
@@ -72,7 +72,8 @@ class Student(Resource):
         return jsonify(args)
 
     def patch(self):
-        pass
+        args = post_students_args.parse_args()
+        return jsonify(args)
     
     def delete(self, id):
         student = self.abort_if_not_exist(id)
