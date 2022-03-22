@@ -85,7 +85,7 @@ class Student(Resource):
 
     def patch(self, id):
         student = self.abort_if_not_exist(id)
-        args = post_students_args.parse_args()
+        args = patch_students_args.parse_args()
 
         database.db.students.update_one(
             {'id':id},
